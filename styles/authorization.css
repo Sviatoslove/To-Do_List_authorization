@@ -1,0 +1,109 @@
+.authorization__wrapper {
+ position: relative;
+ background: url(https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)no-repeat center center / cover;
+ height: 100vh;
+ transition: transform 0.5s ease-in-out 0.2s;
+}
+/* .authorization__wrapper.notActive {
+ position: absolute;
+ transform: translateY(-100%);
+ transition: transform 0.5s ease-in 0s;
+ width: 100%;
+} */
+.form_auth_block_registr:after, .form_auth_block_authoriz:after, .form_auth_block_forgotPass:after {
+position: absolute;
+content: '';
+height: 5px;
+background-color: var(--primary-color);
+width: 100%;
+bottom: 0;
+left: 0;
+}
+.form_auth_block_registr:before, .form_auth_block_authoriz:before, .form_auth_block_forgotPass:before {
+ position: absolute;
+ content: '';
+ height: 5px;
+ background-color: var(--primary-color);
+ width: 100%;
+ top: 0;
+ left: 0;
+ }
+.form_auth_style_registr, .form_auth_style_authoriz, .form_auth_style_forgotPass {
+ margin-bottom: 15px;
+}
+.form_auth_block_registr, .form_auth_block_authoriz, .form_auth_block_forgotPass {
+ width: 500px;
+ height: 500px;
+ margin: 0 auto;
+ background-size: cover;
+ border-radius: 4px;
+}
+.form_auth_block_content_registr, .form_auth_block_content_authoriz, .form_auth_block_content_forgotPass{
+padding-top: 15%;
+}
+.form_auth_block_head_text_registr, .form_auth_block_head_text_authoriz, .form_auth_block_head_text_forgotPass {
+ display: block;
+ text-align: center;
+ padding: 10px;
+ font-size: 20px;
+ font-weight: 600;
+ background: #ffffff;
+ opacity: 0.7;
+}
+.form_auth_block_registr label, .form_auth_block_authoriz label, .form_auth_block_forgotPass label{
+ display: block;
+ text-align: center;
+ padding: 10px;
+ background: #ffffff;
+ opacity: 0.7;
+ font-size: 15px;
+ font-weight: 100;
+ margin-bottom: 10px;
+ margin-top: 10px;
+}
+.form_auth_block_registr input, .form_auth_block_authoriz input, .form_auth_block_forgotPass input{
+display: block;
+margin: 0 auto;
+width: 80%;
+height: 35px;
+border-radius: 10px;  
+border:none;
+outline: none;
+}
+input:focus {
+color: #000000;
+border-radius: 10px;
+border: 2px solid #436fea;
+}
+.form_auth_button_registr, .form_auth_button_authoriz, .form_auth_button_forgotPass{
+ display: block;
+ width: 80%;
+ margin: 0 auto;
+ margin-top: 10px;
+ border-radius: 10px;
+ height: 35px;
+ border: none;
+ cursor: pointer;
+}
+
+.registr__wrapper {
+ width: fit-content;
+ margin-left: auto;
+ text-align: center;
+ font-size: 20px;
+}
+.link{
+ color: black;
+ background-color: rgba(251, 248, 245, 0.6);
+ border-radius: 15px;
+ padding: 5px;
+ display: block;
+ text-decoration: none;
+}
+.registr__wrapper > a:nth-child(1) {
+ margin-bottom: 10px;
+}
+::-webkit-input-placeholder {color:#3f3f44; padding-left: 10px;}
+::-moz-placeholder          {color:#3f3f44; padding-left: 10px;}
+:-moz-placeholder           {color:#3f3f44; padding-left: 10px;}
+:-ms-input-placeholder      {color:#3f3f44; padding-left: 10px;}

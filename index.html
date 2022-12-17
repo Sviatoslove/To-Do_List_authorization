@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/index.css"/>
+  <link rel="stylesheet" href="styles/authorization.css"/>
+  <script defer src="index.js"></script>
+  <script defer src="authorization.js"></script> 
+  <title>DOM_2_4</title>
+</head>
+<body>
+  <div class="authorization__wrapper"></div>
+  <div id="tasks">
+    <div class="tasks__wrapper">
+      <form class="create-task-block">
+        <input
+          name="taskName"
+          class="create-task-block__input default-text-input"
+          type="text"
+          placeholder="Создайте новую задачу"
+          value="Посмотреть урок по JavaScript"
+        >
+        <button
+          type="submit"
+          class="create-task-block__button default-button"
+        >
+          Создать
+        </button>
+        <button
+          type="submit"
+          class="create-task-block__button default-button logout"
+        >
+        Выйти
+        </button>
+      </form>
+      <div class="tasks-list"></div>
+    </div>
+  </div>
+</body>
+</html>
