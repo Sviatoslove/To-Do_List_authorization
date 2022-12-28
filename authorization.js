@@ -183,6 +183,7 @@ function formControl (event) {
    authorization = new Authorization(currentLogin, currentPassword, userData);
    authorization.getUserData(authorization.userLogin);
    renderAuthorizationForm('authoriz', true);
+   authorizationWrapper.querySelector('.checkbox-form__checkbox_inSystem').addEventListener('click', checkInSystem);
   }else{
    getError(labelPass, 'Не верный второй пароль', false);
   };
@@ -205,6 +206,7 @@ function formControl (event) {
    userData[currentLogin].password = currentPassword;
    localStorage.setItem('authorization', JSON.stringify(userData));
    renderAuthorizationForm('authoriz', true);
+   authorizationWrapper.querySelector('.checkbox-form__checkbox_inSystem').addEventListener('click', checkInSystem);
   }else{
    getError(labelPass, 'Не верный второй пароль', false);
   };

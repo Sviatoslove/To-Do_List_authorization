@@ -38,33 +38,24 @@ function getWorkToTasks (tasks) {
     
     let currentTheme = 'white';
     
-    form.addEventListener('submit', addNewTask);
+    form.addEventListener('submit', addNewTask)
     
     function addNewTask(event) {
         event.preventDefault();
         const { target } = event;
-        const { submitter } = event;
-        if(submitter.className.includes('logout')) {
-            authorizationWrapper.style.transform = `translateY(0)`;
-            $tasks.style.transform = `translateY(0)`;
-            userData[currentLogin].inSystem = false;
-            localStorage.setItem('authorization', JSON.stringify(userData));
-            setTimeout(() => {location.reload()}, 500);
-        }else if(!submitter.className.includes('logout')) {
-            const taskName = target.elements.taskName.value;
-            input.focus();
-            if(getValidation(taskName, form, target)) return;
-            const id = String(Date.now());
-            const newTask = {
-                id: id,
-                completed: false,
-                text: taskName
-            };
-            tasks.unshift(newTask);
-            setTasks(tasks, tasksList);
-            localStorage.setItem('authorization', JSON.stringify(userData));
-            target.elements.taskName.value = '';
+        const taskName = target.elements.taskName.value;
+        input.focus();
+        if(getValidation(taskName, form, target)) return;
+        const id = String(Date.now());
+        const newTask = {
+            id: id,
+            completed: false,
+            text: taskName
         };
+        tasks.unshift(newTask);
+        setTasks(tasks, tasksList);
+        localStorage.setItem('authorization', JSON.stringify(userData));
+        target.elements.taskName.value = '';
     };
     
     function getValidation(taskName, form, target) {
@@ -72,7 +63,6 @@ function getWorkToTasks (tasks) {
         const textsValues = tasks.reduce((acc, item) => acc = [...acc, getStringToCompare(item.text)], []);
         const blockError = document.createElement('span');
         blockError.classList.add('error-message-block');
-        console.log(form.children[2])
         if(form.children[2]) form.querySelector('.error-message-block').remove();
         if(!taskName.trim()) {
             blockError.textContent = 'Название задачи не должно быть пустым';
@@ -258,4 +248,14 @@ function getWorkToTasks (tasks) {
     deleteUserBtn.addEventListener('click', deleteUser);
 
     document.addEventListener('keydown', getKeyTab);
+    
+    const logout = tasksWrapper.querySelector('.logout');
+
+    logout.addEventListener('click', () => {
+        authorizationWrapper.style.transform = `translateY(0)`;
+        $tasks.style.transform = `translateY(0)`;
+        userData[currentLogin].inSystem = false;
+        localStorage.setItem('authorization', JSON.stringify(userData));
+        setTimeout(() => {location.reload()}, 500);
+    })
 };

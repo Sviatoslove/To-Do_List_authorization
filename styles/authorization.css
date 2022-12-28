@@ -3,6 +3,7 @@
  background: url(https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)no-repeat center center / cover;
  height: 100vh;
  transition: transform 0.5s ease-in-out 0.2s;
+ overflow-y: auto;
 }
 /* .authorization__wrapper.notActive {
  position: absolute;
@@ -33,19 +34,20 @@ left: 0;
 }
 .form_auth_block_registr, .form_auth_block_authoriz, .form_auth_block_forgotPass {
  width: 500px;
- height: 500px;
+ height: auto;
  margin: 0 auto;
  background-size: cover;
  border-radius: 4px;
 }
 .form_auth_block_content_registr, .form_auth_block_content_authoriz, .form_auth_block_content_forgotPass{
-padding-top: 15%;
+padding-top: 1%;
 }
 .form_auth_block_head_text_registr, .form_auth_block_head_text_authoriz, .form_auth_block_head_text_forgotPass {
  display: block;
  text-align: center;
  padding: 10px;
  font-size: 20px;
+ line-height: 18px;
  font-weight: 600;
  background: #ffffff;
  opacity: 0.7;
@@ -60,6 +62,9 @@ padding-top: 15%;
  font-weight: 100;
  margin-bottom: 10px;
  margin-top: 10px;
+}
+.checkbox-form_inSystem label {
+ background: none;
 }
 .form_auth_block_registr input, .form_auth_block_authoriz input, .form_auth_block_forgotPass input{
  display: block;

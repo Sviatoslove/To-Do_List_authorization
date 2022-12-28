@@ -19,10 +19,30 @@
   .name_current_user_delete_wrapper {
     justify-content: center;
   }
+  .task-item__text, .create-task-block__input {
+    font-size: 1rem;
+    line-height: 1.2rem;
+    font-weight: bold;
+  }
+  .create-task-block__input {
+    height: 22px;
+  }
+  .create-task-block__button, .task-item__delete-button {
+    border-radius: 5px;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    height: 25px;
+  }
+  .task-item {
+    font-size: 1rem;
+  }
+  .create-task-block__input {
+    margin-bottom: 10px;
+  }
 }
 /* 320-576px  */
 @media screen and (max-width: 576px) {
-  .form_auth_block_authoriz {
+  .form_auth_block_authoriz, .form_auth_block_registr, .form_auth_block_forgotPass {
     max-width: 100vw;
     width: 90%;
   }
