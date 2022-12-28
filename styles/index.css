@@ -13,6 +13,7 @@
 html {
     font-size: 10px;
     line-height: 10px;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -21,25 +22,31 @@ body {
     background: initial;
     overflow: hidden;
 }
+.name_current_user_title {
+    line-height: 30px;
+}
 
 .all__wrapper {
     display: flex;
 }
 
 #tasks {
+    background: url(https://gremih.ru/wp-content/uploads/c/3/a/c3a92bb7930dd9c9961b6e5a42f644a6.jpeg)no-repeat center center / cover;
     position: absolute;
     width: 100vw;
-    height: 95vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
     transition: transform 0.5s ease-in-out 0.2s;
+    overflow-y: auto;
 }
 
+
 .tasks__wrapper {
-    max-width: 70%;
+    max-width: 100%;
     width: 100%;
 }
 
@@ -63,9 +70,8 @@ body {
 }
 
 .logout {
-    position: absolute;
-    right: 0;
     font-size: 20px;
+    margin-left: 20px;
 }
 
 .main-navigation {
@@ -111,13 +117,11 @@ body {
 .create-task-block__button,
 .task-item__delete-button {
     cursor: pointer;
-
     background-color: var(--primary-color);
     color: var(--text-color);
     border: none;
     padding: 5px 20px;
     border-radius: 5px;
-  
     font-size: 1.5rem;
     line-height: 2.5rem;
 }
@@ -127,7 +131,7 @@ body {
     font-size: 1.5rem;
     line-height: 2.5rem;
     border-bottom: 2px solid var(--primary-color);
-    padding: 10px 0;
+    padding: 10px;
 
     display: flex;
     flex-direction: column;
@@ -142,8 +146,16 @@ body {
 .task-item__main-content {
     display: flex;
     align-items: center;
+    margin-right: 5px;
 }
-
+.name_current_user_title, .task-item__main-content {
+    box-shadow: 0px 0px 10px 2px rgba(0, 21, 255, 0.5), 0px 0px 5px 15px rgba(222, 222, 170, 0.5)inset;
+    border-radius: 10px;
+    padding: 0 10px;
+}
+.name_current_user_title {
+    font-size: 2em;
+  }
 .task-item__delete-button {
     transition: 0.2s ease;
 }
@@ -159,6 +171,7 @@ body {
 .task-item__text {
     font-size: 2rem;
     line-height: 2.5rem;
+    word-break: break-all;
 }
 
 .checkbox-form__checkbox + label {
@@ -176,15 +189,15 @@ body {
     content: "\2714";
     border: 0.1em solid var(--checkbox-border-color);
     border-radius: 0.2em;
-    display: inline-block;
+    display: flex;
     width: 1em;
     height: 1em;
     padding-left: 0.2em;
-    padding-bottom: 0.3em;
     margin-right: 0.2em;
     vertical-align: bottom;
     color: transparent;
     transition: .2s;
+    align-items: center;
 }
 
 .checkbox-form__checkbox + label:active:before {

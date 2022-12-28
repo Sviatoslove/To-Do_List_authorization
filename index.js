@@ -47,6 +47,8 @@ function getWorkToTasks (tasks) {
         if(submitter.className.includes('logout')) {
             authorizationWrapper.style.transform = `translateY(0)`;
             $tasks.style.transform = `translateY(0)`;
+            userData[currentLogin].inSystem = false;
+            localStorage.setItem('authorization', JSON.stringify(userData));
             setTimeout(() => {location.reload()}, 500);
         }else if(!submitter.className.includes('logout')) {
             const taskName = target.elements.taskName.value;
@@ -70,7 +72,8 @@ function getWorkToTasks (tasks) {
         const textsValues = tasks.reduce((acc, item) => acc = [...acc, getStringToCompare(item.text)], []);
         const blockError = document.createElement('span');
         blockError.classList.add('error-message-block');
-        if(form.children[3]) form.querySelector('.error-message-block').remove();
+        console.log(form.children[2])
+        if(form.children[2]) form.querySelector('.error-message-block').remove();
         if(!taskName.trim()) {
             blockError.textContent = 'Название задачи не должно быть пустым';
             target.elements.taskName.value = '';
@@ -98,9 +101,11 @@ function getWorkToTasks (tasks) {
         nameUserWrapper.innerHTML = `
         <h1 class="name_current_user_title">To-Do List: Учётная запись ${currentLogin}</h1>
         <div class="name_current_user_delete_wrapper">
-        <h2 class="name_current_user_delete_title">Удалить учётную запись ${currentLogin}:</h2>
             <button class="task-item__delete-button default-button delete-button_user" data-user-id=${currentLogin}>
                 Удалить
+            </button>
+            <button type="submit" class="create-task-block__button default-button logout">
+                Выйти
             </button>
         </div>
         `;

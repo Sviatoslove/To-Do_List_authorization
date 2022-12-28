@@ -21,6 +21,7 @@ let currentPasswordConfirm;
 let modalOverlay;
 let labelLogin;
 let labelPass;
+let userInSystem;
 
 let employ = 'authoriz';
 
@@ -49,7 +50,7 @@ const renderAuthorizationForm = (emplo, bool = false) => {
   break;
  };
  let templateAdd = `
-  <input type="password" class="input_auth_pass_confirm_${emplo}" name="auth_pass_confirm_${emplo}" style="margin-top: 10px;"placeholder="Введите Ваш ${class1[4]}" required >
+  <input type="password" class="input_auth_pass_confirm_${emplo}" name="Повторите пароль" style="margin-top: 10px;"placeholder="Введите Ваш ${class1[4]}" required >
  `;
  if(bool) {
   text = 'Теперь войдите в свою учётную запись';
@@ -61,14 +62,16 @@ const renderAuthorizationForm = (emplo, bool = false) => {
     <p class="form_auth_block_head_text_${emplo}">${text}</p>
     <form class="form_auth_style_${emplo}" action="#" method="post">
      <label class="label_auth_login_${emplo}">Введите Ваш логин</label>
-     <input type="text" class="input_auth_login_${emplo}" name="auth_login_${emplo}" placeholder="Введите Ваш логин" required >
+     <input type="text" class="input_auth_login_${emplo}" name="Логин" placeholder="Введите Ваш логин" required >
      <label class="label_auth_pass_${emplo}">Введите Ваш пароль</label>
-     <input type="password" class="input_auth_pass_${emplo}" name="auth_pass_${emplo}" placeholder="Введите Ваш ${class1[3]}" required >
+     <input type="password" class="input_auth_pass_${emplo}" name="Пароль" placeholder="Введите Ваш ${class1[3]}" required >
      <button class="form_auth_button_${emplo}" type="submit" name="form_auth_submit_${emplo}">${class1[2]}</button>
     </form>
     <div class="registr__wrapper">
-     <a href="#" class="${class1[0]}__link link">${class1[1]}</a>
-     <a href="#" class="${class2[0]}__link link">${class2[1]}</a>
+     <div class="link_wrapper">
+      <a href="#" class="${class1[0]}__link link">${class1[1]}</a>
+      <a href="#" class="${class2[0]}__link link">${class2[1]}</a>
+     </div>
     </div>
    </div>
   </div>
@@ -77,14 +80,28 @@ const renderAuthorizationForm = (emplo, bool = false) => {
  if(emplo === 'registr' || emplo === 'forgotPass') {
   authorizationWrapper.querySelector(`.form_auth_button_${employ}`).before(container);
   authorizationWrapper.querySelector('.container').innerHTML = templateAdd;
-  inputPassConfirm = document.querySelector(`[name="auth_pass_confirm_${employ}"]`);
- };
- registrWrapper = authorizationWrapper.querySelector('.registr__wrapper');
+  inputPassConfirm = document.querySelector(`.input_auth_pass_confirm_${employ}`);
+ }else if(emplo === 'authoriz'){
+  authorizationWrapper.querySelector(`.registr__wrapper`).prepend(container);
+  templateAdd = `
+  <div class="form_wrapper_inSystem">
+   <form class="checkbox-form checkbox-form_inSystem">
+    <input class="checkbox-form__checkbox checkbox-form__checkbox_inSystem" type="checkbox" name="inSystem" id="789">
+    <label class="label_inSystem" for="789"></label>
+   </form>
+   <span class="task-item__text task-item__text_inSystem">
+    Оставаться в системе
+   </span>
+  </div>
+  `;
+  authorizationWrapper.querySelector('.container').innerHTML = templateAdd;
+ }
+ registrWrapper = authorizationWrapper.querySelector('.link_wrapper');
  registrWrapper.addEventListener('click', choiceForm);
  formCurrent = authorizationWrapper.querySelector(`.form_auth_style_${employ}`);
  formAuthButton = formCurrent.querySelector(`.form_auth_button_${employ}`);
- inputLogin = formCurrent.querySelector(`[name="auth_login_${employ}"]`);
- inputPass = formCurrent.querySelector(`[name="auth_pass_${employ}"]`);
+ inputLogin = formCurrent.querySelector(`.input_auth_login_${employ}`);
+ inputPass = formCurrent.querySelector(`.input_auth_pass_${employ}`);
  formCurrent.addEventListener('click', formControl);
 };
 
@@ -112,6 +129,7 @@ class Authorization {
   this.userData[userLogin] = {
    userLogin: this.userLogin,
    password: this.password,
+   inSystem: false,
    tasks: []
   };
   this.pushToServer()
@@ -144,6 +162,8 @@ function formControl (event) {
  labelPass = formCurrent.querySelector(`.label_auth_pass_${employ}`);
  currentLogin = inputLogin.value;
  currentPassword = inputPass.value;
+ getError(labelLogin, 'Введите Ваш логин', true, 'black');
+ getError(labelPass, 'Введите Ваш пароль', true, 'black');
  if(target.className.includes(`form_auth_button_${employ}`)) {
   if(currentLogin === '' && currentPassword === '') {
    getError(labelLogin, 'Логин не может быть пустой строкой...', false);
@@ -156,10 +176,6 @@ function formControl (event) {
    getError(labelPass, 'Пароль не может быть пустой строкой...', false);
    return;
   };
- };
- if(target.className.includes(`input_auth_login_${employ}`) || target.className.includes(`input_auth_pass_${employ}`)) {
-  getError(labelLogin, 'Введите Ваш логин', true, 'black');
-  getError(labelPass, 'Введите Ваш пароль', true, 'black');
  };
  searhErrorInsert(target, employ);
  if(target.className.includes('form_auth_button_registr')) {
@@ -175,7 +191,10 @@ function formControl (event) {
   if(Object.keys(userData).includes(currentLogin) && userData[currentLogin].password === currentPassword) {
    authorizationWrapper.style.transform = `translateY(-100%)`;
    $tasks.style.transform = `translateY(-100%)`;
-   const currentTasks = userData[currentLogin].tasks
+   const currentTasks = userData[currentLogin].tasks;
+   userInSystem = authorizationWrapper.querySelector('.checkbox-form__checkbox_inSystem').hasAttribute('checked');
+   userData[currentLogin].inSystem = userInSystem;
+   localStorage.setItem('authorization', JSON.stringify(userData));
    getWorkToTasks(currentTasks);
   }else{
    getError(labelPass, 'Не верный логин или пароль пароль', false);
@@ -192,37 +211,46 @@ function formControl (event) {
  };
 };
 
-function searhErrorInsert(target, employ) {
- if(currentLogin.length > 0) {
-  if(target.className.includes(`input_auth_login_${employ}`)) {
-   if(currentLogin.length < 4) {
-    getError(labelLogin, 'Логин не может состоять менее, чем из 4-х символов', false);
-   };
-  }else if(target.className.includes(`input_auth_pass_${employ}`)) {
-   if(currentPassword.length < 4) {
-    getError(labelPass, 'Пароль не може состоять менее, чем из 4-х символов', false);
-   }else{
-    getError(labelPass, 'Введите Ваш пароль', true, 'black');
-   };
-  }else {
-   getError(labelLogin, 'Введите Ваш логин', true, 'black');
-   getError(labelPass, 'Введите Ваш пароль', true, 'black');
-  };
+authorizationWrapper.querySelector('.checkbox-form__checkbox_inSystem').addEventListener('click', checkInSystem);
 
+function checkInSystem(event) {
+ const {target} = event;
+ if(target.hasAttribute('checked')) {
+  target.removeAttribute('checked');
+ }else {
+  target.setAttribute('checked', 'true');
+ };
+};
+
+function searhErrorInsert(target, employ) {
+ if(target.value.length > 0) {
+  if(!target.className.includes(`input_auth_pass_confirm_${employ}`)) {
+   if(target.value.length < 4) {
+    getError(target.previousElementSibling, `${target.name} не может состоять менее, чем из 4-х символов`, false);
+    target.onblur = function() {
+     if(target.value.length < 4) {
+      target.focus();
+     };
+    };
+   }else {
+    getError(target.previousElementSibling, `Введите Ваш ${target.name}`, true, 'black');
+   };
+  };
+  
   if(currentLogin.length >= 4 && target.className.includes(`input_auth_login_registr`)) {
    if(Object.keys(userData).includes(inputLogin.value)) {
     getError(labelLogin, 'Такой логин уже занят...', false);
     inputLogin.onblur = function() {
-     if(Object.keys(userData).includes(inputLogin.value))inputLogin.focus();
+     if(Object.keys(userData).includes(inputLogin.value)){
+      inputLogin.focus()
+     };
     };
    }else if(currentLogin.length >= 4) {
     getError(labelLogin, 'Логин свободен...')
    };
   };
- };
- 
- if(target.className.includes(`input_auth_pass_confirm_${employ}`)) {
-  if(inputPassConfirm.value.length > 0) {
+
+  if(target.className.includes(`input_auth_pass_confirm_${employ}`)) {
    if(inputPassConfirm.value !== inputPass.value) {
     getError(labelPass, 'Пароли не совпадают...', false);
     inputPassConfirm.onblur = function() {
@@ -246,4 +274,11 @@ function getError(elem, text, bool = true, color1 = 'green', color2 = 'red') {
   elem.style.color = color2;
   elem.textContent = text;
  };
+};
+
+if(Object.values(userData).some(elem => elem.inSystem)) {
+ authorizationWrapper.style.transform = `translateY(-100%)`;
+ $tasks.style.transform = `translateY(-100%)`;
+ currentLogin = Object.values(userData).find(elem => elem.inSystem).userLogin;
+ getWorkToTasks(userData[currentLogin].tasks);
 };

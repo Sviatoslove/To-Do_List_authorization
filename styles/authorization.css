@@ -62,13 +62,16 @@ padding-top: 15%;
  margin-top: 10px;
 }
 .form_auth_block_registr input, .form_auth_block_authoriz input, .form_auth_block_forgotPass input{
-display: block;
-margin: 0 auto;
-width: 80%;
-height: 35px;
-border-radius: 10px;  
-border:none;
-outline: none;
+ display: block;
+ margin: 0 auto;
+ width: 80%;
+ height: 35px;
+ border-radius: 10px;  
+ border:none;
+ outline: none;
+}
+.checkbox-form_inSystem input {
+ display: none;
 }
 input:focus {
 color: #000000;
@@ -85,12 +88,15 @@ border: 2px solid #436fea;
  border: none;
  cursor: pointer;
 }
-
 .registr__wrapper {
- width: fit-content;
+ width: inherit;
  margin-left: auto;
  text-align: center;
  font-size: 20px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+
 }
 .link{
  color: black;
@@ -100,8 +106,19 @@ border: 2px solid #436fea;
  display: block;
  text-decoration: none;
 }
-.registr__wrapper > a:nth-child(1) {
+.link_wrapper > a:nth-child(1) {
  margin-bottom: 10px;
+}
+.form_wrapper_inSystem {
+ width: fit-content;
+ display: flex;
+ align-items: center;
+ margin-right: 40px;
+}
+.task-item__text_inSystem {
+ background-color: rgba(251, 248, 245, 0.6);
+ border-radius: 15px;
+ padding: 5px;
 }
 ::-webkit-input-placeholder {color:#3f3f44; padding-left: 10px;}
 ::-moz-placeholder          {color:#3f3f44; padding-left: 10px;}

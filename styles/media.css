@@ -1,0 +1,48 @@
+/*---------------------- Media Queries-------------- */
+
+/* 992- 1200px */
+@media screen and (max-width: 1200px) {
+}
+/* 768-992px */
+@media screen and (max-width: 992px) {
+  .tasks__wrapper {
+    max-width: 100%;
+    width: 90%;
+  }
+}
+/* 576-610px */
+@media screen and (max-width: 610px) {
+  .name_current_user_wrapper {
+    display: block;
+    width: fit-content;
+  }
+  .name_current_user_delete_wrapper {
+    justify-content: center;
+  }
+}
+/* 320-576px  */
+@media screen and (max-width: 576px) {
+  .form_auth_block_authoriz {
+    max-width: 100vw;
+    width: 90%;
+  }
+}
+/* 320-450px  */
+@media screen and (max-width: 449px) {
+  .registr__wrapper {
+    display: block;
+  }
+  .form_wrapper_inSystem {
+    margin: 0 auto 10px;
+  }
+  .link_wrapper {
+    width: fit-content;
+    margin: 0 auto; 
+  }
+}
+/* 320-396px  */
+@media screen and (max-width: 396px) {
+  .name_current_user_title {
+    font-size: 15px;
+  }
+}
