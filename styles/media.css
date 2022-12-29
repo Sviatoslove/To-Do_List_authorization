@@ -59,6 +59,9 @@
     width: fit-content;
     margin: 0 auto; 
   }
+  .name_current_user_title {
+    font-size: 20px;
+  }
 }
 /* 320-396px  */
 @media screen and (max-width: 396px) {
